@@ -1,0 +1,253 @@
+<?php
+if(isset($_POST['sendMessage'])) {
+    $to = "falolaoyetoromade@gmail.com"; // your email
+    $name = htmlspecialchars($_POST['name']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $subject = htmlspecialchars($_POST['subject']);
+    $message = htmlspecialchars($_POST['message']);
+
+    $headers = "From: $name <$email>\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    $mailSuccess = mail($to, $subject, $message, $headers);
+
+    if($mailSuccess){
+        echo "<script>alert('Message sent successfully!'); window.location.href='contact.php';</script>";
+    } else {
+        echo "<script>alert('Sorry, your message could not be sent. Please try again later.'); window.location.href='contact.php';</script>";
+    }
+}
+?>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me - Falola Oyetoromade Regina</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: linear-gradient(90deg, #007F5F, #FF7F11);
+    }
+    .nav-text {
+      font-weight: 600;
+      color: #fff;
+    }
+    .nav-link:hover .nav-text {
+      color: #d4edda;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #007F5F, #FF7F11);
+      color: white;
+      text-align: center;
+      padding: 6rem 1rem;
+    }
+    .hero h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    /* Contact Form */
+    .contact-section {
+      padding: 4rem 0;
+    }
+    .contact-section h2 {
+      text-align: center;
+      color: #007F5F;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    .form-control {
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .btn-send {
+      background-color: #FF7F11;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .btn-send:hover {
+      background-color: #e56f00;
+    }
+
+    /* Contact Info */
+    .contact-info {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .contact-info i {
+      color: #FF7F11;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .contact-info h5 {
+      margin-top: 0.5rem;
+      font-weight: 700;
+      color: #007F5F;
+    }
+
+    /* Map */
+    .map-container {
+      margin-top: 3rem;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(90deg, #007F5F, #FF7F11);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+    }
+    .footer-link {
+      color: #d4edda;
+      text-decoration: none;
+    }
+    .footer-link:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><b>FALOLA OYETOROMADE REGINA</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html"><span class="nav-text">Home</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html"><span class="nav-text">About</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="project.html"><span class="nav-text">Projects</span></a></li>
+          <li class="nav-item"><a class="nav-link active" href="#"><span class="nav-text">Contact</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Let's Build Something Great Together</h1>
+      <p>Reach out to collaborate, ask questions, or just say hello! I'm always open to exciting tech projects and opportunities.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="container">
+      <h2>Contact Me</h2>
+
+     <form action="contact.php" method="POST">
+  <div class="mb-3">
+    <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+  </div>
+  <div class="mb-3">
+    <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+  </div>
+  <div class="mb-3">
+    <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+  </div>
+  <div class="mb-3">
+    <textarea class="form-control" name="message" rows="6" placeholder="Your Message" required></textarea>
+  </div>
+  <div class="text-center">
+    <button type="submit" name="sendMessage" class="btn btn-send">Send Message</button>
+  </div>
+</form>
+
+
+      <!-- Contact Info -->
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <div class="contact-info">
+            <i class="fas fa-envelope"></i>
+            <h5>Email</h5>
+            <p>falolaoyetoromade@gmail.com</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-info">
+            <i class="fas fa-phone"></i>
+            <h5>Phone</h5>
+            <p>07089987594</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-info">
+            <i class="fas fa-map-marker-alt"></i>
+            <h5>Location</h5>
+            <p>Surulere Lagos, Nigeria</p>
+          </div>
+        </div>
+      </div>
+
+    <!-- Social Links -->
+<div class="row mt-4 justify-content-center">
+  <div class="col-md-6 text-center">
+    <a href="https://github.com/falolaoyetoromade" target="_blank" class="btn btn-demo m-2">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/Oyetoromade falola" target="_blank" class="btn btn-demo m-2">
+      <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+    <a href="https://www.instagram.com/reggietechofficial" target="_blank" class="btn btn-demo m-2">
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+  </div>
+</div>
+
+
+      <!-- Map -->
+      <div class="map-container mt-5">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.328749733526!2d3.3684655749395316!3d6.524379895309345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4d3b3ef3ff3%3A0xd0c4f9aa5a1f2e0f!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1708391800000!5m2!1sen!2sng"
+          width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 | Designed by <strong>Falola Regina</strong> | <a href="index.html" class="footer-link">Home</a></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
